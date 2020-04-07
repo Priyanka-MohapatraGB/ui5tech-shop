@@ -1,0 +1,49 @@
+<core:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:uxap="sap.uxap" controllerName="demo.shop.controller.Object">
+	<uxap:ObjectPageLayout id="ObjectPageLayout" showHeaderContent="false" upperCaseAnchorBar="false">
+		<uxap:headerTitle>
+			<uxap:ObjectPageHeader objectImageURI="sap-icon://product" objectImageShape="Circle" objectTitle="{Category}"
+				isObjectIconAlwaysVisible="true" isObjectTitleAlwaysVisible="true" showPlaceholder="true">
+				<uxap:actions>
+					<uxap:ObjectPageHeaderActionButton icon="sap-icon://cart-full" text="Zum Warenkorb ({basket>/itemsCount})" hideText="false"
+						importance="High" enabled="{basket>/hasItems}" press="openBasket"/>
+				</uxap:actions>
+			</uxap:ObjectPageHeader>
+		</uxap:headerTitle>
+		<uxap:sections>
+			<uxap:ObjectPageSection>
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection title="Product Details">
+						<ObjectHeader title="{Name}" icon="sap-icon://product"
+							number="{parts:[{path:'Price'},{path:'CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
+							numberUnit="{CurrencyCode}">
+							<attributes>
+								<ObjectAttribute title="{i18n>ObjectviewItem-Number}" text="{ProductID}"/>
+								<ObjectAttribute title="{i18n>ObjectviewItemBreadth}" text="{Width} {DimUnit}"/>
+								<ObjectAttribute title="{i18n>ObjectviewItemHeight}" text="{Height} {DimUnit}"/>
+								<ObjectAttribute title="{i18n>ObjectviewItemDepth}" text="{Depth} {DimUnit}"/>
+								<ObjectAttribute title="{i18n>ObjectviewItemWeight}" text="{WeightMeasure} {WeightUnit}"/>
+								<ObjectAttribute text="{Description}"/>
+								<ObjectAttribute text="{i18n>ObjectviewItemItem-in-Shopping-Cart}" active="true" press="onAddToBasket"/>
+							</attributes>
+						</ObjectHeader>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+			<uxap:ObjectPageSection>
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection title="Supplier">
+						<ObjectHeader title="{ToSupplier/CompanyName}" icon="sap-icon://supplier">
+							<attributes>
+								<ObjectAttribute text="{ToSupplier/Address/Street} {ToSupplier/Address/Building}"/>
+								<ObjectAttribute text="{ToSupplier/Address/PostalCode} {ToSupplier/Address/City}"/>
+								<ObjectAttribute text="E-Mail: {ToSupplier/EmailAddress}"/>
+								<ObjectAttribute title="Tel." text="{ToSupplier/PhoneNumber}"/>
+								<ObjectAttribute text="{ToSupplier/WebAddress}"/>
+							</attributes>
+						</ObjectHeader>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+		</uxap:sections>
+	</uxap:ObjectPageLayout>
+</core:View>

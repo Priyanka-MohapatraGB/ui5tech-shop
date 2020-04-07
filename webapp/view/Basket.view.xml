@@ -1,0 +1,39 @@
+<core:View xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:layout="sap.ui.layout" xmlns:uxap="sap.uxap" xmlns:forms="sap.ui.layout.form"
+controllerName="demo.shop.controller.Basket">
+
+    <uxap:ObjectPageLayout id="ObjectPageLayout" enableLazyLoading="true" alwaysShowContentHeader="true">
+        <uxap:headerTitle>
+            <uxap:ObjectPageHeader objectImageURI="sap-icon://cart-full" objectImageShape="Circle" objectTitle="Shopping Cart"
+id="ObjectPageLayoutHeaderTitle" isObjectIconAlwaysVisible="true" isObjectTitleAlwaysVisible="true" showPlaceholder="true">
+
+                <uxap:actions>
+                    <uxap:ObjectPageHeaderActionButton icon="sap-icon://cart-approval" hideText="false" text="Order Shopping Cart" importance="High" type="Accept" visible="{basket>/hasItems}" press="onSubmit"/>
+                </uxap:actions>
+            </uxap:ObjectPageHeader>
+        </uxap:headerTitle>
+        
+        <uxap:headerContent>
+            <layout:VerticalLayout>
+                <ObjectStatus text="Bestellwert: {basket>/totalPrice} USD"/>
+            </layout:VerticalLayout>
+        </uxap:headerContent>
+
+        <uxap:ObjectPageSection title="Bestellpositionen">
+            <uxap:subSections>
+                <uxap:ObjectPageSubSection title="Bestellpositionen">
+                    <uxap:blocks>
+                        <List id="basketList" items="{ToLineItems}" noDataText="Es befinden sich derzeit keine Produkte im Warenkorb" mode="Delete" delete="onDeleteFromBasket">
+                            <items>
+                                <ObjectListItem title="{Note}" number="{NetAmount}" numberUnit="{CurrencyCode}">
+                                    <attributes>
+                                        <ObjectAttribute text="{ProductID}" active="true" press="onProductDetails"/>
+                                    </attributes>
+                                </ObjectListItem>
+                            </items>
+                        </List>
+                    </uxap:blocks>
+                </uxap:ObjectPageSubSection>
+            </uxap:subSections>
+        </uxap:ObjectPageSection>
+    </uxap:ObjectPageLayout>
+</core:View>

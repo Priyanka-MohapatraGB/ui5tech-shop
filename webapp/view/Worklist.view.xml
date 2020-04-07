@@ -1,0 +1,60 @@
+<mvc:View controllerName="demo.shop.controller.Worklist" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.f.semantic"
+	xmlns:footerbar="sap.ushell.ui.footerbar" xmlns:core="sap.ui.core">
+	<semantic:SemanticPage id="page" headerPinnable="false" toggleHeaderOnTitleClick="false">
+		<semantic:titleHeading>
+			<Title text="{i18n>worklistTitle}"/>
+		</semantic:titleHeading>
+		<semantic:content>
+			<Table id="table" width="auto" items="{ path: '/ProductSet', sorter: { path: 'ProductID', descending: false } }"
+				noDataText="{worklistView>/tableNoDataText}" busyIndicatorDelay="{worklistView>/tableBusyDelay}" growing="true" growingScrollToLoad="true"
+				updateFinished="onUpdateFinished">
+				<headerToolbar>
+					<Toolbar>
+						<SearchField id="searchField" tooltip="{i18n>worklistSearchTooltip}" search="onSearch" width="100%"/>
+						<Select id="categoryField" change="onSearch" forceSelection="false" items="{ path: '/VH_CategorySet' }"
+							tooltip="Produktliste nach Kategorie filtern">
+							<core:Item key="{Category}" text="{Category}"/>
+						</Select>
+						<Button icon="sap-icon://reset" press="onResetFilter" tooltip="Filterkriterien zurücksetzen"/>
+					</Toolbar>
+				</headerToolbar>
+				<columns>
+					<Column>
+						<Text text="{i18n>worklistProduct}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>worklistCategory}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>worklistSupplier}"/>
+					</Column>
+					<Column hAlign="End">
+						<Text text="{i18n>worklistPrice}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Navigation" press="onPress">
+						<cells>
+							<ObjectIdentifier title="{Name}" text="{ProductID}"/>
+							<Text text="{Category}"/>
+							<Text text="{SupplierName}"/>
+							<ObjectNumber number="{Price}" unit="{CurrencyCode}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</semantic:content>
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press="onShareEmailPress"/>
+		</semantic:sendEmailAction>
+		<semantic:shareInJamAction>
+			<semantic:ShareInJamAction id="shareInJam" visible="{FLP>/isShareInJamActive}" press="onShareInJamPress"/>
+		</semantic:shareInJamAction>
+		<semantic:saveAsTileAction>
+			<footerbar:AddBookmarkButton id="shareTile" title="{worklistView>/saveAsTileTitle}"/>
+		</semantic:saveAsTileAction>
+		<semantic:titleCustomTextActions>
+			<Button icon="sap-icon://cart-full" text="To Shopping Cart ({basket>/itemsCount})" press="openBasket" enabled="{basket>/hasItems}"/>
+		</semantic:titleCustomTextActions>
+	</semantic:SemanticPage>
+</mvc:View>
